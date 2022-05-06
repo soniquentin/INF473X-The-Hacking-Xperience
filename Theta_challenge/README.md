@@ -8,7 +8,7 @@ During the whole challenge, root login must be enabled to run all the programs, 
 
 ## 1st step : DHCP Starvation
 
-The first step is to neutralize the default DHCP server so that it won't be able to configure future new hosts anymore. The proposed way is to spam it hard by sending many DHCP discover packets until it runs out of IP address to propose. The DHCP starvation program is called _DHCP_starvation.c_ and can be run with the command `./DHCP_starvation`.
+The first step is to neutralize the default DHCP server so that it won't be able to configure future new hosts anymore. The proposed way is to spam it hard by sending many DHCP discover packets until it runs out of IP address it can propose. The DHCP starvation program is called _DHCP_starvation.c_ and can be run with the command `./DHCP_starvation`.
 
 Once the starvation is running, all the discover packets will be printed out with their content. The key point is to make sure each packet has a different _Client hardware address_ (`chaddr`). Otherwise, the DHCP server would detect a weird behaviour and could possibly blacklist our client. The _Client hardware address_ is randomly generated then.
 Moreover a _Starving count_ was added to count how many packets have been sent. Here is an example of discover packet that is printed out :
@@ -51,7 +51,7 @@ char dns_ip[] = "10.0.2.15";
 ```
 In our case :
 - `char fake_default_gateway[] = "10.0.2.1"` is the real default gateway that is to say the one offered by the default DHCP server.
-- `char fake_ip_offer[] = "10.0.2.111"` represents the offered IP address. The 4th number (111 here) is the number that can be changed as the subnet mask was set on `255.255.255.0`.
+- `char fake_ip_offer[] = "10.0.2.111"` represents the offered IP address. The 4th number (111 here) is the only number that can be changed as the subnet mask was set on `255.255.255.0`.
 - `char fake_dhcp_ip[] = "10.0.2.15"` is our IP address (the attacker one) from where _fake_DHCP.c_ is running.
 - `char dns_ip[] = "10.0.2.15"` has been set to our IP address because of the next step.
 
