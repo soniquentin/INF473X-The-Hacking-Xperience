@@ -1,5 +1,3 @@
-//A lot of code parts was inspired by https://github.com/nagios-plugins/nagios-plugins/blob/master/plugins-root/check_dhcp.c
-
 #include<stdio.h>
 #include<string.h>
 #include<sys/socket.h>
