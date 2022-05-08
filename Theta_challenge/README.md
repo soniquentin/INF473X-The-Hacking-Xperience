@@ -1,5 +1,19 @@
 # THETA CHALLENGE (INF473X The Hacking Xperience)
 
+## Run commands
+
+
+On the attacker computer :
+- Run the local DNS with the command `service bind9 start` and check it's activated with `systemctl status bind9`.
+- Open XAMPP with the command `/opt/lampp/manager-linux-x64.run` and start _Apache Web Server_.
+- Starve the default DHCP server by running `./DHCP_starvation`.
+- Run `./fake_DHCP` to wait for a new host (that needs a configuration) and configure it.
+
+
+On the victim computer :
+- Ask for a new DHCP configuration with the terminal command `dhclient -r ; dhclient`
+
+
 ## Introduction
 The challenge consists on programming a __Man in the middle attack__  using a DHCP spoofing. The final goal is to display a page saying _"This is not Facebook"_ on the victim's computer when requesting for the URL [www.facebook.com](https://www.facebook.com).   
 
