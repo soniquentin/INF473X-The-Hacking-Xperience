@@ -2,6 +2,7 @@
 
 ## Run commands
 
+During the whole challenge, root login must be enabled to run all the programs, for example by typing the command `sudo su` in the terminal.
 
 On the attacker computer :
 - Run the local DNS with the command `service bind9 start` and check it's activated with `systemctl status bind9`.
@@ -16,8 +17,6 @@ On the victim computer :
 
 ## Introduction
 The challenge consists on programming a __Man in the middle attack__  using a DHCP spoofing. The final goal is to display a page saying _"This is not Facebook"_ on the victim's computer when requesting for the URL [www.facebook.com](https://www.facebook.com).   
-
-During the whole challenge, root login must be enabled to run all the programs, for example by typing the command `sudo su` in the terminal.
 
 ## 1st step : DHCP Starvation
 
