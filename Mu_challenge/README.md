@@ -1,5 +1,10 @@
 # Mu CHALLENGE (INF473X The Hacking Xperience)
 
+## Run commands
+
+Run `./hack_terminal` to open a fake terminal of the VM. Then, enter type `cd ; for i in $(find . -name *.html); do echo '<p>YOUR NAME</p>' >>  $i; done` to add `YOUR NAME` at the bottom of the HTML page.
+
+## Explanations
 
 The final goal of this challenge is to manage to write our name on the html page hosted at the IP address `192.168.56.101`.
 
