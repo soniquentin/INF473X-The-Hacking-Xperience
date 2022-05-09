@@ -28,7 +28,7 @@ Let's dig deeper and try to count the exact number of letters 'A' needed to over
 gdb-peda$ x/xw $sp
 0xffffcf1c:	  0x565562d6
 ```
-Now, let's find the _greeting_text_'s position in the memory. The function `strcat` takes two arguments one of which is our interest variable. I put another break at the level of `strcat`, run the program until this second break and show this arguments (`dumpargs` works only with GDB Peda) :
+Now, all that remains is to find _greeting_text_'s position in the memory. The function `strcat` takes two arguments one of which is our interest variable. I put another break at the level of `strcat`, run the program until this second break and show this arguments (`dumpargs` works only with GDB Peda) :
 ```
 gdb-peda$ dumpargs
 Guessed arguments:
@@ -40,3 +40,10 @@ The distance between the return pointer and _greeting_text_ can be calculated as
 gdb-peda$ p/d 0xffffcf1c - 0xffffce90
 $2 = 140
 ```
+
+Let's check this count and generate a new _attack.txt_ : `python3 -c 'print("A"*128 + "BBAB") ' > attack.txt`. Go back to gdb and run the program `r < attack.txt` :
+```
+Stopped reason: SIGSEGV
+0x42414242 in ?? ()
+```
+We still get a segmentation fault but this time, the return pointer has been successfully modified to `42414242` which corresponds to the hexadecimal code of "BBAB".
