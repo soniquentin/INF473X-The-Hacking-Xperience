@@ -47,3 +47,9 @@ Stopped reason: SIGSEGV
 0x42414242 in ?? ()
 ```
 We still get a segmentation fault but this time, the return pointer has been successfully modified to `42414242` which corresponds to the hexadecimal code of "BBAB".
+
+### Structure of the stack memory
+```
+| ############## BUFFER ############### | ###### GREETING_TEXT ###### | # SOMETHING # | # RETURN ADDRESS # |
+|                 256                   |             128             |       12      |         4          |
+```
