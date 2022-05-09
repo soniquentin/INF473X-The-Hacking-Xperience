@@ -1,4 +1,4 @@
-# Mu CHALLENGE (INF473X The Hacking Xperience)
+# MU CHALLENGE (INF473X The Hacking Xperience)
 
 ## Run commands
 
