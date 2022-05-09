@@ -1,4 +1,4 @@
-# Nu CHALLENGE (INF473X The Hacking Xperience)
+# NU CHALLENGE (INF473X The Hacking Xperience)
 
 ## Run commands
 
