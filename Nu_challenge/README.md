@@ -25,7 +25,7 @@ Stopped reason: SIGSEGV
 
 ### Exploitation
 
-Let's dig deeper and try to count the exact number of letters 'A' needed to overwrite the return pointer with the sequence one wants. This count is simply the distance between the return pointer and _greeting_text_ + 12 (the 12 first characters are already written : _"Hello, dear "_). To find the return pointer's position in the stack, I put a break at the beginning (at the `push` level) of the function `parse` with the command `b *0x########` (in my case `b *0x56556231` and can be access when `parse` is disassembled  : `disas parse`). When running the program, it stops at this break and the stack pointer is currently the return pointer. So the return pointer's position can be access with :
+Let's dig deeper and try to count the exact number of letters 'A' needed to overwrite the return pointer with the sequence one wants. This count is simply the distance between the return pointer and _greeting_text_ + 12 (the 12 first characters are already written : _"Hello, dear "_). To find the return pointer's position in the stack, I put a break at the beginning (at the `push` level) of the function `parse` with the command `b *0x########` (in my case `b *0x56556231` and can be access when `parse` is disassembled  : `disas parse`). When running the program, it stops at this break and at this moment the stack pointer is the return pointer. So the return pointer's position can be access with :
 ```
 gdb-peda$ x/xw $sp
 0xffffcf1c:	  0x565562d6
