@@ -2,7 +2,7 @@
 
 ## Run commands
 
-Run `./hack_terminal` to open a fake terminal of the VM. Then, type `cd ; for i in $(find . -name *.html); do echo '<p>YOUR NAME</p>' >>  $i; done` to add `YOUR NAME` at the bottom of the HTML page.
+Run `./overflow_buffer_attack` to open a fake terminal of the VM. Then, type `cd ; for i in $(find . -name *.html); do echo '<p>YOUR NAME</p>' >>  $i; done` to add `YOUR NAME` at the bottom of the HTML page.
 
 
 ## Explanations
