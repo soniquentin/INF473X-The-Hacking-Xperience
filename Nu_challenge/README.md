@@ -6,7 +6,7 @@ Run `./hack_terminal` to open a fake terminal of the VM. Then, type `cd ; for i 
 
 
 ## Explanations
-
+The vulnerability used is a buffer overflow. When the VM asks for a name, the user simply gives it a too long name to the point where the return address at the end of function `parse` is overwritten. This return address is then modified to point toward the beginning of the buffer (that stores the user's input) and execute malicious instructions in it. Here, the malicious instructions are launching a shell and modify all HTML file as done in the Mu challenge.
 
 ## GDB Tests
 
