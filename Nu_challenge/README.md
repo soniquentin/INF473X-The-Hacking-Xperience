@@ -30,7 +30,7 @@ Let's dig deeper and try to count the exact number of letters 'A' needed to over
 gdb-peda$ x/xw $sp
 0xffffcf1c:	  0x565562d6
 ```
-Now, all that remains is to find _greeting_text_'s position in the memory. The function `strcat` takes two arguments one of which is our interest variable. I put another break at the level of `strcat`, run the program until this second break and show his arguments (`dumpargs` works only with GDB Peda) :
+Now, all that remains is to find _greeting_text_'s position in the memory. The function `strcat` takes two arguments one of which is our interest variable. I put another break at the level of `strcat`, run the program until this second break and display the two arguments of `strcat` (`dumpargs` works only with GDB Peda) :
 ```
 gdb-peda$ dumpargs
 Guessed arguments:
