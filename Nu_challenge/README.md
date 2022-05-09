@@ -43,7 +43,7 @@ gdb-peda$ p/d 0xffffcf1c - 0xffffce90
 $2 = 140
 ```
 
-Let's verify this count and generate a new _attack.txt_ : `python3 -c 'print("A"*128 + "BBAB") ' > attack.txt`. Go back to gdb and run the program `r < attack.txt` :
+Let's verify this count by generating a new _attack.txt_ : `python3 -c 'print("A"*128 + "BBAB") ' > attack.txt`. Go back to gdb and run the program `r < attack.txt` :
 ```
 Stopped reason: SIGSEGV
 0x42414242 in ?? ()
