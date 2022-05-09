@@ -53,5 +53,5 @@ We still get a segmentation fault but this time, the return pointer has been suc
 ### Structure of the stack memory
 ```
 | ############## BUFFER ############### | ###### GREETING_TEXT ###### | # SOMETHING # | # RETURN ADDRESS # |
-|                 256                   |             128             |       12      |         4          |
+|                 256                   |             128             |       12      |         6          |
 ```
