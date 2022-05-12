@@ -3,6 +3,7 @@
 ## Run commands
 
 In root login, run `./syn_flooding IP_ADDRESS PORT` where `IP_ADDRESS` and `PORT` are the ip address and the port you want to flood.
+
 To use the multithreading version, run `./syn_flooding_multi IP_ADDRESS PORT NB_THREAD` with an additional argument `NB_THREAD` which is simply the number of threads.
 
 ## Introduction
