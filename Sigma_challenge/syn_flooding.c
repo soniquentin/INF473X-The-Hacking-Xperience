@@ -125,10 +125,10 @@ int config_headers(struct iphdr *iph, struct tcphdr *tcph, struct pseudo_tcp_hea
 	tcph->th_ack = 0x0000; //Acknowledgment number --> Initialize to 0
 	tcph->th_off = 0x5; //Data offset --> Initialize to 5
 	tcph->th_x2 = 0x0; //Reserved data – The reserved field is always set to zero.
-    tcph->th_flags = TH_SYN; //Control flags
-    tcph->th_win = htons(5840); //Window size TCP checksum
-    tcph->th_sum = 0; //Checksun
-    tcph->th_urp = 0x00; //Urgent pointer
+	tcph->th_flags = TH_SYN; //Control flags
+	tcph->th_win = htons(5840); //Window size TCP checksum
+	tcph->th_sum = 0; //Checksun
+	tcph->th_urp = 0x00; //Urgent pointer
 
 	//fill the TCP pseudo header
 		// More info --> https://www.baeldung.com/cs/pseudo-header-tcp
@@ -137,7 +137,7 @@ int config_headers(struct iphdr *iph, struct tcphdr *tcph, struct pseudo_tcp_hea
 	psh_ptr->dest_address = htonl(dest_port);
 	psh_ptr->reserved = 0; //--> 8 bits of 0
 	psh_ptr->protocol = TCP_PROTOCOL; //--> 6 for TCP
-	psh_ptr->tcp_length = htons(sizeof(struct udphdr) + strlen(data)); // Can't calculate yet
+	psh_ptr->tcp_length = htons(sizeof(struct tcphdr) + strlen(data)); // Can't calculate yet
 
 	//Calculation tcp checksum
 	int psize = sizeof(struct pseudo_tcp_header) + sizeof(struct tcphdr) + strlen(data);
