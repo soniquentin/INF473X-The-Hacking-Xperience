@@ -3,7 +3,7 @@
 ## Run commands
 
 In root login, run `./syn_flooding IP_ADDRESS PORT` where `IP_ADDRESS` and `PORT` are the ip address and the port you want to flood.
-
+To use the multithreading version, run `./syn_flooding_multi IP_ADDRESS PORT NB_THREAD` with an additional argument `NB_THREAD` which is simply the number of threads.
 
 ## Introduction
 
@@ -31,3 +31,7 @@ Let's flood the first VM by running the command `./syn_flooding 192.168.56.101 2
 In addition, new clients fail when they try to contact the server for the first time :
 
 ![normal](screenshots/notconnect.png)
+
+## Packet rate improvement with multithreading
+
+In order to increase the packet rate, I made a multithreading version. The packet rate is about 25 200 per minute for the first version (`./syn_flooding 192.168.56.101 2000`) whereas it is up to 1 645 116 per minute for the multithreading version (`./syn_flooding_multi 192.168.56.101 2000` for 10 threads).
