@@ -45,8 +45,7 @@ if __name__ == "__main__":
     if len(sys.argv) == 1 :
         name_of_the_player = "Quentin LAO"
     else :
-        for i in range(1, len(sys.argv)) :
-            name_of_the_player += sys.argv[i] + " "
+        name_of_the_player = ' '.join(sys.argv[1:])
 
     #Creation session to log on the website
     session = login(username, password)

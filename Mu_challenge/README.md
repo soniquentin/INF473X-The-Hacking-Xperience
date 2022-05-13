@@ -4,7 +4,8 @@
 
 Run `./hack_terminal` to open a fake terminal of the VM. Then, type `cd ; for i in $(find . -name *.html); do echo '<p>YOUR NAME</p>' >>  $i; done` to add `YOUR NAME` at the bottom of the HTML page.
 
-Run `python3 reverse_shell.py 192.168.56.101 1234` to launch a reverse shell of the VM.
+Run `python3 reverse_shell.py 192.168.56.101 1234` to launch a reverse shell of the VM :
+![reverse_shell](screenshots/reverse_shell.png)
 
 ## Explanations
 
