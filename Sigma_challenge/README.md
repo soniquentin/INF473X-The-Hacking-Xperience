@@ -35,4 +35,4 @@ In addition, new clients fail when they try to contact the server for the first 
 
 ## Packet rate improvement with multithreading
 
-In order to increase the packet rate, I made a multithreading version. The packet rate is about 25 200 per minute for the first version (`./syn_flooding 192.168.56.101 2000`) whereas it is up to 1 645 116 per minute for the multithreading version (`./syn_flooding_multi 192.168.56.101 2000` for 10 threads).
+In order to increase the packet rate, I made a multithreading version. The packet rate is about 25 200 per minute for the first version (`./syn_flooding 192.168.56.101 2000`) whereas it is up to 1 645 116 per minute for the multithreading version (`./syn_flooding_multi 192.168.56.101 2000 10` for 10 threads).
