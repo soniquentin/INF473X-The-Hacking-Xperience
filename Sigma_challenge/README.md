@@ -14,7 +14,8 @@ Basically, when a client looks for establishing a TCP link with a server, it has
 - Client -----__SYN__---> Server : the client informs the server that it would like to start a communication
 - Client <--__SYN-ACK__-- Server : the server tells back to the client that it is available
 - Client -----__ACK__---> Server : the client acknowledges and all data transfers can start
-When the server receives a SYN packet, it has to allocate a certain amount of memory (buffers) to temporarily store the received data and once the SYN-ACK packet has been sent, the server has to wait for client's ACK packet. Thus, the TCP Syn attack consists to send a lot of SYN packet to a server to make too busy to handle legitimate SYN packets from real clients. The task for this challenge is to be able to generate TCP RAW packets (a little bit like we did for UDP datagrams in tutorial 4) with IP spoofing so that the server believes the received packets are coming from different clients. The following picture shows the SYN packets sent by my program :
+
+When the server receives a SYN packet, it has to allocate a certain amount of memory (buffers) to temporarily store the received data and once the SYN-ACK packet has been sent, the server has to wait for client's ACK packet. Thus, the TCP Syn attack consists to send a lot of SYN packet to a server to make it too busy to handle legitimate SYN packets from real clients. The task for this challenge is to be able to generate TCP RAW packets (a little bit like we did for UDP datagrams in tutorial 4) with IP spoofing so that the server believes the received packets are coming from different clients. The following picture shows the SYN packets sent by my program :
 
 ![wireshark](screenshots/wireshark.png)
 
