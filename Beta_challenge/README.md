@@ -53,4 +53,5 @@ Then, I copied my public key in the Python Script `ssh_injection.py`. The latter
 Now, we can proceed to a [sudo privilege escalation](https://www.youtube.com/watch?v=4nCnh6BHcUg&ab_channel=Conda). By typing `sudo -l`, we can read that as _superxwebdeveloper_, we have access to the command `/usr/bin/vim` with no password :
 ![superuser](screenshots/superuser.png)
 
-Let's exploit this vulnerability and run `sudo -u superxwebdeveloper vim`. Vim is a text editor on which we can write commands for exemple `:!/bin/bash` to run a bash shell. As Vim has just been run with sudo, the bash shell will be running as a root shell. Knowing now that there is nothing we can't do with root...
+Let's exploit this vulnerability and run `sudo -u superxwebdeveloper vim`. Vim is a text editor on which we can write commands for exemple `:!/bin/bash` to run a bash shell. As Vim has just been run with sudo as _superxwebdeveloper_, the bash shell will be running as a super admin. By searching in the computer files, we can find the challenge's answer !
+![final](screenshots/final.png)
