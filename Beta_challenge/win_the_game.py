@@ -52,6 +52,7 @@ if __name__ == "__main__":
     print_cookies(session)
 
     #Get the user id in the cookie and guess the right numbers
+    id = decode( dict_from_cookiejar(session.cookies)["session"] )['id']
     payload = {"guess" : good_numbers(id)}
     result_winner = session.post(url_winner, data = payload, allow_redirects = True )
     print_cookies(session)
