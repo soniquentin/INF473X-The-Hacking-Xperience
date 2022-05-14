@@ -10,7 +10,7 @@ Run `python3 ssh_injection.py` to inject your public key in the web machine.
 
 ## 1st part : guess the 5 numbers
 
-Once the username and the password have been found, the first challenge is to guess the 5 numbers to win the loto. However, these numbers are randomly generated through the function `challenge` in the `main.py` file :
+The first challenge is to find the username and the password in order to be allowed to play the loto. They can be found in the details of the commit _"Add gitignore"_. As a matter of fact, we can display the differences between before and after the Python script `my_secrets.py` was "git-ignored" and so get access to what `my_secrets.py` contained right before the commit. The second step is to guess the 5 numbers in order to win the loto. However, these numbers are randomly generated through the function `challenge` in the `main.py` file :
 ```
 def challenge(id):
     random.seed(int(time.time()) + id)
@@ -47,7 +47,7 @@ First things first, the command `ssh-keygen -t rsa -b 4096` generates a private 
 Your identification has been saved in /home/quentin/.ssh/id_rsa
 Your public key has been saved in /home/quentin/.ssh/id_rsa.pub
 ```
-Then, I copied my public key in the Python Script `ssh_injection.py`. The latter writes my public key in the authorized keys file of the host machine. Here is how the `request.form` dictionnary looks like : `{ "name" : PUBLIC_KEY, "date" : "../.ssh/authorized_keys" }`. Once done, the command `ssh -i /home/quentin/.ssh/id_rsa web@78.202.149.15` simply run a shell of the remote machine.
+Then, I copied my public key in the Python Script `ssh_injection.py`. The latter writes my public key in the authorized keys file of the host machine. The authorized keys file is usually named _"authorized_keys"_ and is present in the _".ssh"_ folder which is in the _"home"_ folder. Thus, here is how the `request.form` dictionnary looks like : `{ "name" : PUBLIC_KEY, "date" : "../.ssh/authorized_keys" }`. Once done, the command `ssh -i /home/quentin/.ssh/id_rsa web@78.202.149.15` simply runs a shell of the remote machine.
 ![web_ssh](screenshots/web_ssh.png)
 
 By typing `sudo -l`, we can read that as _superxwebdeveloper_, we have access to the command `/usr/bin/vim` with no password :
