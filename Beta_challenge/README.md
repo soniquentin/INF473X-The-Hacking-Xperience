@@ -47,7 +47,7 @@ First things first, the command `ssh-keygen -t rsa -b 4096` generates a private 
 Your identification has been saved in /home/quentin/.ssh/id_rsa
 Your public key has been saved in /home/quentin/.ssh/id_rsa.pub
 ```
-Then, I copied my public key in the Python Script `ssh_injection.py`. The latter writes my public key in the authorized keys file of the host machine. The authorized keys file is usually named _"authorized_keys"_ and is present in the _".ssh"_ folder which is in the _"home"_ folder. Thus, here is how the `request.form` dictionnary looks like : `{ "name" : PUBLIC_KEY, "date" : "../.ssh/authorized_keys" }`. Once done, the command `ssh -i /home/quentin/.ssh/id_rsa web@78.202.149.15` simply runs a shell of the remote machine.
+Then, I copied my public key in the Python Script `ssh_injection.py`. The latter writes my public key in the authorized keys file of the host machine. The authorized keys file is usually named _"authorized_keys"_ and is present in the _".ssh"_ folder which is in the _"home/usr"_ folder. Thus, here is how the `request.form` dictionnary looks like : `{ "name" : PUBLIC_KEY, "date" : "../.ssh/authorized_keys" }`. Once done, the command `ssh -i /home/quentin/.ssh/id_rsa web@78.202.149.15` simply runs a shell of the remote machine.
 ![web_ssh](screenshots/web_ssh.png)
 
 By typing `sudo -l`, we can read that as _superxwebdeveloper_, we have access to the command `/usr/bin/vim` with no password :
